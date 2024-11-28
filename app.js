@@ -94,10 +94,11 @@ function checkWin(origBoard,player) {
     let plays=origBoard.reduce((a,e,i) => (e===player) ? a.concat(i) : a,[]) ;
 
     let gameWon = null;
-    gameEnded = true;
+   
     for(let[index,win] of winCombos.entries()){
         if (win.every(elem=> plays.indexOf(elem)>-1)) {
             gameWon = {index: index, player: player};
+            gameEnded = true;
             break;
         }
     }
@@ -154,7 +155,8 @@ function bestSpot() {
 }
 
 function checkTie(para){
-    if((emptySquares().length ===0 && gameEnded === false )|| para === "drawFound"){
+    
+    if((emptySquares().length ===0 && gameEnded === false )|| para === "drawFound" && gameEnded === false){
         drawSound.play();
         for (let i = 0; i < cells.length; i++) {
             cells[i].style.backgroundColor = "green";
